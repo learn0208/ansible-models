@@ -25,6 +25,8 @@ def find_keys(filename, regx, tailnum, ingorecase):
     has_changed = False
     tailnum = int(tailnum)
 
+    rr = re.compile(regx)
+
     if os.path.exists(filename):
         with open(filename, 'r') as f:
             c = f.readlines()
@@ -35,9 +37,9 @@ def find_keys(filename, regx, tailnum, ingorecase):
 
             # ingore case
             if ingorecase:
-                w = re.findall(regx, sc, re.IGNORECASE)
+                w = [ rr.findall(line, re.IGNORECASE) for line in sc ]
             else:
-                w = re.findall(regx, sc)
+                w = [ rr.findall(line) for line in sc ]
 
             # output
             if w:
