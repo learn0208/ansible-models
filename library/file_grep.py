@@ -36,10 +36,17 @@ def find_keys(filename, regx, tailnum, ingorecase):
                 sc = ''.join(c[-tailnum:])
 
             # ingore case
-            if ingorecase:
-                w = [ rr.findall(line, re.IGNORECASE) for line in sc ]
-            else:
-                w = [ rr.findall(line) for line in sc ]
+            w = []
+            for line in sc:
+                if ingorecase:
+                    s = rr.findall(line, re.IGNORECASE)
+                else:
+                    s = rr.findall(line)
+
+                if s:
+                    w.append(''.join(s))
+
+            print w
 
             # output
             if w:
